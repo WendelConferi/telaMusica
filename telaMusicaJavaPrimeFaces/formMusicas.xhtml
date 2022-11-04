@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+	<ui:define name="head">
+
+	</ui:define>
+
+	<ui:define name="content">
+		<h1 class="aw-page-title">Cadastro musicas</h1>
+
+		<h:form id="frm">
+
+
+			<p:panelGrid columns="2" layout="grid"
+				styleClass="panelgrid-noborder"
+				columnClasses="ui-grid-col-3, ui-grid-col-3">
+
+				<p:outputLabel value="Código da música:" for="numSeq" />
+				<p:inputText id="numSeq" widgetVar="numSeq" disabled="true"
+					value="#{musicasFormBacking.numSeq}">
+				</p:inputText>
+
+				<p:outputLabel value="Nome da música:" for="desNome" />
+				<p:inputText id="desNome" widgetVar="desNome"
+					value="#{musicasFormBacking.desNome}">
+				</p:inputText>
+
+				<p:outputLabel value="Nome da banda:" />
+				<p:inputText id="desBanda" widgetVar="desBanda"
+					value="#{musicasFormBacking.desBanda}">
+				</p:inputText>
+				
+				<p:outputLabel value="Nome do album:" />
+				<p:inputText id="desAlbum" widgetVar="desalbum"
+					value="#{musicasFormBacking.desAlbum}">
+				</p:inputText>
+				
+				<p:outputLabel value="Ano:" />
+				<p:inputText id="indAno" widgetVar="indAno"
+					value="#{musicasFormBacking.indAno}">
+				</p:inputText>
+
+				<p:outputLabel value="Nota da música" for="indNota" />
+
+				<p:rating value="#{musicasFormBacking.indNota}" id="indNota" />
+							
+			</p:panelGrid>
+
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton id="salvar1" value="Salvar"
+						action="#{musicasFormBacking.actionSalvar()}" />
+				</p:toolbarGroup>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

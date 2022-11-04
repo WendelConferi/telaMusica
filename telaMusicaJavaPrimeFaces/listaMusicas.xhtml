@@ -1,0 +1,136 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+	<ui:define name="head">
+		<style type="text/css">
+.nba-grid {
+	width: 100%;
+	table-layout: fixed;
+	word-wrap: break-word;
+}
+
+.ui-scrollpanel-content p:first-child {
+	margin: 0;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="content">
+		<h1 class="aw-page-title">Musicas</h1>
+
+		<h:form id="frmm">
+			<p:toolbar id="pesquisa">
+				<p:toolbarGroup align="center">
+					<p:outputLabel for="vlrSearch" value="Nome da música: " />
+					<p:spacer width="1%"></p:spacer>
+					<p:inputText id="vlrSearch" size="50" maxlength="100"
+						value="${musicasBacking.buscaNome}" style="width: 40%" />
+
+					<br />
+
+					<p:outputLabel for="vlrSearchh" value="Banda da música: " />
+					<p:spacer width="1%"></p:spacer>
+					<p:inputText id="vlrSearchh" size="50" maxlength="100"
+						value="${musicasBacking.buscaBanda}" style="width: 40%" />
+
+
+					<br />
+
+
+					<p:outputLabel for="vlrSearchhh" value="Album: " />
+					<p:spacer width="1%"></p:spacer>
+					<p:inputText id="vlrSearchhh" size="50" maxlength="100"
+						value="${musicasBacking.buscaAlbum}" style="width: 40%" />
+
+
+					<br />
+
+					<p:outputLabel for="vlrSearchhhh" value="Ano entre: " />
+					<p:spacer width="1%"></p:spacer>
+					<p:inputText id="vlrSearchhhh" size="20" maxlength="4"
+						value="${musicasBacking.buscaAno1}" style="width: 10%" />
+						
+					<p:outputLabel for="vlrSearchhhhh" value="e: " />
+					
+					<p:inputText id="vlrSearchhhhh" size="20" maxlength="4"
+						value="${musicasBacking.buscaAno2}" style="width: 10%" />
+
+
+					<p:commandButton iconPos="center" icon="ui-icon-search"
+						action="#{musicasBacking.actionBuscarNome()}"
+						update="tableMusicas">
+					</p:commandButton>
+					
+					<p:button icon="pi pi-times" styleClass="rounded-button ui-button-times" style ="background-color: red" action="#{musicasBacking.limparSearch()}" update="frmm"/>
+					
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:spacer width="4px"></p:spacer>
+			<p:dataTable value="#{musicasBacking.musicasParaSerMostradoNaTela}"
+				var="row" id="tableMusicas"
+				emptyMessage="Nenhum registro encontrado" style="margin-top: 20px">
+
+				<p:column headerText="Codigo">
+					<h:outputText value="#{row.numSeq}" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{row.desNome}" />
+				</p:column>
+
+				<p:column headerText="Banda">
+					<h:outputText value="#{row.desBanda}" />
+				</p:column>
+
+				<p:growl id="messages" showDetail="true" />
+
+				<p:column headerText="Nota">
+					<p:rating value="#{row.indNota}" disabled="true" />
+
+					<p:outputLabel value="Essa é das boas"
+						rendered="#{row.indNota > 3}" />
+
+					<p:outputLabel value="nao eh boa" rendered="#{row.indNota &lt; 2}" />
+				</p:column>
+
+				<p:column headerText="Album">
+					<h:outputText value="#{row.desAlbum}" />
+				</p:column>
+
+				<p:column headerText="Ano">
+					<h:outputText value="#{row.indAno}" />
+				</p:column>
+
+				<p:column headerText="Editar">
+					<div align="center">
+						<p:commandButton id="btnEditar" icon="ui-icon-pencil"
+							action="#{musicasBacking.actionFormEdicao(row)}">
+						</p:commandButton>
+					</div>
+				</p:column>
+
+				<p:column headerText="Remover">
+					<div align="center">
+						<p:commandButton id="btnRemover" icon="ui-icon-pencil"
+							action="#{musicasBacking.actionRemover(row)}"
+							update="tableMusicas">
+						</p:commandButton>
+					</div>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:commandButton id="addMusica" icon="ui-icon-plus"
+				value="Adicionar musica" action="#{musicasBacking.actionForm()}" />
+
+
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
